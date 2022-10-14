@@ -8,6 +8,7 @@ gem 'money-rails'
 
 group :development do
   gem 'sqlite3'
+  gem 'annotate'
 end
 
 # To use a debugger
