@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_16_051415) do
+ActiveRecord::Schema.define(version: 2022_10_18_134104) do
 
   create_table "act_as_subscriptable_payment_gateways", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,17 @@ ActiveRecord::Schema.define(version: 2022_10_16_051415) do
     t.json "gateway_info", default: {}
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "act_as_subscriptable_payment_methods", force: :cascade do |t|
+    t.integer "payment_gateway_id"
+    t.string "name"
+    t.text "description"
+    t.integer "payment_type"
+    t.boolean "enabled", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["payment_gateway_id"], name: "index_act_as_subscriptable_payment_methods_on_payment_gateway_id"
   end
 
   create_table "act_as_subscriptable_subscriptions", force: :cascade do |t|
@@ -38,4 +49,5 @@ ActiveRecord::Schema.define(version: 2022_10_16_051415) do
     t.index ["subscriptable_type", "subscriptable_id"], name: "index_act_as_subscriptable_subscriptions_on_subscriptable"
   end
 
+  add_foreign_key "act_as_subscriptable_payment_methods", "act_as_subscriptable_payment_gateways", column: "payment_gateway_id"
 end
