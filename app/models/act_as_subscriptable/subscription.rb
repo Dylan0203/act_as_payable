@@ -19,6 +19,8 @@
 #
 module ActAsSubscriptable
   class Subscription < ApplicationRecord
+    has_many :payments
+
     enum period_type: { days: 0, weeks: 1, months: 2, years: 3 }
   end
 end

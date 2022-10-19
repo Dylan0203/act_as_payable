@@ -21,5 +21,7 @@ require 'rails_helper'
 
 module ActAsSubscriptable
   RSpec.describe Subscription, type: :model do
+    # associations
+    it { should have_many(:payments) }
   end
 end

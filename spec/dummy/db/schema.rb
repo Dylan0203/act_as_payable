@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_18_134104) do
+ActiveRecord::Schema.define(version: 2022_10_18_134812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,23 @@ ActiveRecord::Schema.define(version: 2022_10_18_134104) do
     t.index ["payment_gateway_id"], name: "index_aas_payment_methods_on_payment_gateway_id"
   end
 
+  create_table "act_as_subscriptable_payments", force: :cascade do |t|
+    t.bigint "subscription_id"
+    t.bigint "payment_method_id"
+    t.string "merchant_order_number"
+    t.datetime "notification_sent_at"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.string "state"
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "USD", null: false
+    t.jsonb "gateway_info", default: {}
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["payment_method_id"], name: "index_aas_payments_on_payment_method_id"
+    t.index ["subscription_id"], name: "index_aas_payments_on_subscription_id"
+  end
+
   create_table "act_as_subscriptable_subscriptions", force: :cascade do |t|
     t.string "subscriptable_type"
     t.bigint "subscriptable_id"
@@ -53,4 +70,6 @@ ActiveRecord::Schema.define(version: 2022_10_18_134104) do
   end
 
   add_foreign_key "act_as_subscriptable_payment_methods", "act_as_subscriptable_payment_gateways", column: "payment_gateway_id"
+  add_foreign_key "act_as_subscriptable_payments", "act_as_subscriptable_payment_methods", column: "payment_method_id"
+  add_foreign_key "act_as_subscriptable_payments", "act_as_subscriptable_subscriptions", column: "subscription_id"
 end
