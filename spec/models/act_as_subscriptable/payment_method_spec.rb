@@ -2,8 +2,8 @@
 #
 # Table name: act_as_subscriptable_payment_methods
 #
-#  id                 :integer          not null, primary key
-#  payment_gateway_id :integer
+#  id                 :bigint           not null, primary key
+#  payment_gateway_id :bigint
 #  name               :string
 #  description        :text
 #  payment_type       :integer

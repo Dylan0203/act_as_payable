@@ -2,10 +2,10 @@
 #
 # Table name: act_as_subscriptable_payment_gateways
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  name             :string
 #  gateway_provider :string
-#  gateway_info     :json
+#  gateway_info     :jsonb
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #

@@ -12,30 +12,33 @@
 
 ActiveRecord::Schema.define(version: 2022_10_18_134104) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "act_as_subscriptable_payment_gateways", force: :cascade do |t|
     t.string "name"
     t.string "gateway_provider"
-    t.json "gateway_info", default: {}
+    t.jsonb "gateway_info", default: {}
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "act_as_subscriptable_payment_methods", force: :cascade do |t|
-    t.integer "payment_gateway_id"
+    t.bigint "payment_gateway_id"
     t.string "name"
     t.text "description"
     t.integer "payment_type"
     t.boolean "enabled", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["payment_gateway_id"], name: "index_act_as_subscriptable_payment_methods_on_payment_gateway_id"
+    t.index ["payment_gateway_id"], name: "index_aas_payment_methods_on_payment_gateway_id"
   end
 
   create_table "act_as_subscriptable_subscriptions", force: :cascade do |t|
     t.string "subscriptable_type"
-    t.integer "subscriptable_id"
+    t.bigint "subscriptable_id"
     t.string "subscriber_type"
-    t.integer "subscriber_id"
+    t.bigint "subscriber_id"
     t.string "title"
     t.text "description"
     t.integer "period_type", default: 3

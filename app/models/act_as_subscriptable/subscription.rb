@@ -2,11 +2,11 @@
 #
 # Table name: act_as_subscriptable_subscriptions
 #
-#  id                   :integer          not null, primary key
+#  id                   :bigint           not null, primary key
 #  subscriptable_type   :string
-#  subscriptable_id     :integer
+#  subscriptable_id     :bigint
 #  subscriber_type      :string
-#  subscriber_id        :integer
+#  subscriber_id        :bigint
 #  title                :string
 #  description          :text
 #  period_type          :integer          default("years")
