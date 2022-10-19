@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_18_134812) do
+ActiveRecord::Schema.define(version: 2022_10_19_124842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2022_10_18_134812) do
     t.jsonb "gateway_info", default: {}
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "historical_gateway_info", default: []
   end
 
   create_table "act_as_subscriptable_payment_methods", force: :cascade do |t|
