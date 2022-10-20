@@ -22,5 +22,17 @@ module ActAsSubscriptable
     has_many :payments
 
     enum period_type: { days: 0, weeks: 1, months: 2, years: 3 }
+
+    def is_active
+      Rails.cache.fetch(cache_key_with_version) do
+        payments.
+          paid.
+          where(
+            'act_as_subscriptable_payments.ended_at >= ?',
+            Time.current - grace_period_in_days.days
+          ).
+          exists?
+      end
+    end
   end
 end

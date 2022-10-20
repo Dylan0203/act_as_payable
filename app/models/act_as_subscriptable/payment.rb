@@ -18,7 +18,16 @@
 #
 module ActAsSubscriptable
   class Payment < ApplicationRecord
+    include AASM
+
     belongs_to :subscription
     belongs_to :payment_method
+
+    aasm(column: :state) do
+      state :init, initial: true
+      state :paid
+      state :failed
+      state :canceled
+    end
   end
 end
